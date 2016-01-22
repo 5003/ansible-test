@@ -1,0 +1,13 @@
+---
+- name: install dependency package (php)
+  yum: name=php state=present
+- name: self update
+  command: /bin/env composer self-update
+  register: which_composer
+  ignore_errors: true
+- name: install package
+  shell: >
+          wget --output-document
+          - https://github.com/composer/getcomposer.org/raw/master/web/installer
+          | php -- --install-dir={{ composer.install_dir }} --filename=composer
+  when: which_composer | failed
