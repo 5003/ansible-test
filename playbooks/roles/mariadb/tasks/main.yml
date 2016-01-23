@@ -1,0 +1,32 @@
+---
+- name: install package
+  yum: name={{ item }} state=present
+  with_items:
+    - mariadb-devel
+    - mariadb-server
+    - MySQL-python
+- name: start service
+  service: name=mariadb state=started enabled=yes
+- name: init
+  mysql_user: >
+               name={{ mariadb.config.username }}
+               password={{ mariadb.config.password }}
+               host=localhost
+  ignore_errors: true
+- name: access control permissions (root user)
+  mysql_user: >
+               name=root host={{ item }} state=absent
+               login_user={{ mariadb.config.username }}
+               login_password={{ mariadb.config.password }}
+  with_items:
+    - "{{ ansible_fqdn }}"
+    - 127.0.0.1
+    - ::1
+- name: access control permissions (anonymous users)
+  mysql_user: >
+               name="" host={{ item }} state=absent
+               login_user={{ mariadb.config.username }}
+               login_password={{ mariadb.config.password }}
+  with_items:
+    - localhost
+    - "{{ ansible_fqdn }}"
