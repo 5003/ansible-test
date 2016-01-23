@@ -1,0 +1,3 @@
+---
+docker:
+  cache_images: [centos, quay.io/5003/centos-ssh]
