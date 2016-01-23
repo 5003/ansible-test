@@ -1,0 +1,35 @@
+---
+- name: install dependency packages (php extension)
+  yum: name={{ item }} state=present
+  with_items:
+    - php-gd
+    - php-mbstring
+    - php-mcrypt
+    - php-mysql
+- name: create database
+  mysql_db: >
+             name={{ october.config.db.name }} state=present
+             login_user={{ october.config.db.username }}
+             login_password={{ october.config.db.password }}
+- name: clone this project --> {{ october.www_dir }}
+  git: >
+        repo=https://github.com/octobercms/october.git
+        dest={{ october.fetch_dir }} update=no
+- name: ==> {{ october.www_dir }}
+  synchronize: >
+                src={{ october.fetch_dir }} dest={{ october.www_dir }}
+                rsync_opts=--update
+- name: update all (composer)
+  composer: command=update working_dir={{ october.www_dir }}
+- name: app config
+  template: >
+             src={{ october.config.template_dir }}{{ item }}.j2
+             dest={{ october.www_dir }}config/{{ item }}
+  with_items:
+    - app.php
+    - cms.php
+    - database.php
+- name: access permission
+  file: path={{ october.www_dir }} state=directory recurse=yes mode=0777
+- name: bring up
+  command: php artisan october:up chdir={{ october.www_dir }}

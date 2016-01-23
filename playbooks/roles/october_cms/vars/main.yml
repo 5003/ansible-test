@@ -1,0 +1,20 @@
+---
+october:
+  config:
+    db:
+      port: ""
+      name: october
+      username: root
+      password: ""
+    app:
+      debug: true
+      timezone: Asia/Tokyo
+      locale: en
+      fallback_locale: en
+      key: <32 characters>
+      log: single
+    cms:
+      enable_csrf_protection: true
+    template_dir: config/v313/
+  fetch_dir: /srv/october_cms/
+  www_dir: /var/www/html/
