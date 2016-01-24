@@ -11,7 +11,7 @@
              name={{ october.config.db.name }} state=present
              login_user={{ october.config.db.username }}
              login_password={{ october.config.db.password }}
-- name: clone this project --> {{ october.www_dir }}
+- name: clone this project --> {{ october.fetch_dir }}
   git: >
         repo=https://github.com/octobercms/october.git
         dest={{ october.fetch_dir }} update=no
