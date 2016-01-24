@@ -6,6 +6,15 @@
     - php-mbstring
     - php-mcrypt
     - php-mysql
+- name: httpd config file
+  lineinfile: dest=/etc/httpd/conf.d/access.conf create=yes line={{ item }}
+  with_items:
+    - '<Directory "{{ october.www_dir }}">'
+    - '  AllowOverride All'
+    - '</Directory>'
+  notify: restart service (httpd)
+- name: start service (httpd)
+  service: name=httpd state=started
 - name: create database
   mysql_db: >
              name={{ october.config.db.name }} state=present
