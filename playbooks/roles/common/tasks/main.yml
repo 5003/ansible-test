@@ -23,7 +23,7 @@
     with_items: common.ntp_config.servers
     notify: restart service (chronyd)
   when: common.ntp_config.enabled
-- name: restart service (chronyd)
+- name: start service (chronyd)
   service: name=chronyd state=started enabled=yes
 - name: use local time
   file: >
