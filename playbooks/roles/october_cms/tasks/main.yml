@@ -6,12 +6,21 @@
     - php-mbstring
     - php-mcrypt
     - php-mysql
+- name: httpd config file
+  lineinfile: dest=/etc/httpd/conf.d/access.conf create=yes line={{ item }}
+  with_items:
+    - '<Directory "{{ october.www_dir }}">'
+    - '  AllowOverride All'
+    - '</Directory>'
+  notify: restart service (httpd)
+- name: start service (httpd)
+  service: name=httpd state=started
 - name: create database
   mysql_db: >
              name={{ october.config.db.name }} state=present
              login_user={{ october.config.db.username }}
              login_password={{ october.config.db.password }}
-- name: clone this project --> {{ october.www_dir }}
+- name: clone this project --> {{ october.fetch_dir }}
   git: >
         repo=https://github.com/octobercms/october.git
         dest={{ october.fetch_dir }} update=no
