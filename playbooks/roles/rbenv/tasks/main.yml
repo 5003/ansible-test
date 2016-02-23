@@ -1,0 +1,17 @@
+---
+- name: build requires (ruby spec)
+  yum: name={{ item }} state=present
+  with_items: rbenv.build_requires.spec
+- name: build requires (compiler, and more)
+  yum: name={{ item }} state=present
+  with_items: rbenv.build_requires.others
+- name: clone this project
+  git: >
+        repo=https://github.com/rbenv/rbenv.git
+        dest={{ rbenv.dest.root }} update=no
+- name: clone this project (build environment)
+  git: >
+        repo=https://github.com/rbenv/ruby-build.git
+        dest={{ rbenv.dest.root }}plugins/ruby-build/ update=no
+- name: generate setup script ==> /etc/profile.d/rbenv_setup.sh
+  template: src=bash/rbenv_setup.sh dest=/etc/profile.d/
