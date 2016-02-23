@@ -1,0 +1,3 @@
+---
+phoenix_framework:
+  installer: https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
