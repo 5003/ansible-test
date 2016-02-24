@@ -8,7 +8,6 @@
   with_items:
     - epel-release
     - git
-    - inotify-tools-devel
     - esl-erlang
 - name: verify elixir installation
   command: iex --version
