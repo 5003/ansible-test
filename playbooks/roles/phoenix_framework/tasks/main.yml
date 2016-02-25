@@ -1,4 +1,6 @@
 ---
+- name: install dependency package (inotify-tools)
+  yum: name=inotify-tools-devel state=present
 - name: verify hex installation
   command: mix hex.info
   sudo: no
