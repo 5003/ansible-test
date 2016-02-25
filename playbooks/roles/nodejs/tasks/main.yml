@@ -1,0 +1,17 @@
+---
+- name: install package manager (clone)
+  git: >
+        repo=https://github.com/nodesource/distributions.git
+        dest={{ nodejs.repo_manager.dest }} update=no
+- name: install package manager (check validates)
+  shell: find {{ nodejs.repo_manager.dest }} | grep rpm.*{{ nodejs.version }}
+  register: nodejs_repo
+- name: install package manager (to apply yum repo)
+  shell: source {{ nodejs_repo.stdout }}
+  when: nodejs_repo.rc == 0
+- name: refresh yum repo
+  command: yum --disablerepo=* --enablerepo=nodesource clean all
+  when: nodejs_repo.rc == 0
+- name: install package
+  yum: name=nodejs state=present
+  when: nodejs_repo.rc == 0
