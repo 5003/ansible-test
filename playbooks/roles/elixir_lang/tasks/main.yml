@@ -1,9 +1,4 @@
 ---
-- name: install package manager
-  shell: >
-          wget --output-document
-          - https://github.com/nodesource/distributions/raw/master/rpm/setup_5.x
-          | bash --login
 - name: create yum repo
   get_url: >
             url=http://packages.erlang-solutions.com/rpm/centos/erlang_solutions.repo
@@ -13,8 +8,6 @@
   with_items:
     - epel-release
     - git
-    - inotify-tools-devel
-    - nodejs
     - esl-erlang
 - name: verify elixir installation
   command: iex --version
