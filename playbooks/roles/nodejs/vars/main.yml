@@ -1,0 +1,5 @@
+---
+nodejs:
+  version: 5.x
+  repo_manager:
+    dest: /opt/nodejs_repo_manager/
