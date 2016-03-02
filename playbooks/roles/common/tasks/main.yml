@@ -9,19 +9,16 @@
   yum: name={{ item }} state=present
   with_items: common.popular_packages
   when: common.popular_packages is defined
-- name: disable firewall
-  service: name=firewalled state=stopped enabled=no
-  ignore_errors: true
 # for Japan
 - name: ntp server (chronyd)
   yum: name=chrony state=present
-- block:
-  - name: delete existing settings
-    lineinfile: dest=/etc/chrony.conf regexp="^server.+?cent" state=absent
-  - name: server settings
-    lineinfile: dest=/etc/chrony.conf line="server {{ item }} iburst"
-    with_items: common.ntp_config.servers
-    notify: restart service (chronyd)
+- name: delete existing settings
+  lineinfile: dest=/etc/chrony.conf regexp="^server.+?cent" state=absent
+  when: common.ntp_config.enabled
+- name: server settings
+  lineinfile: dest=/etc/chrony.conf line="server {{ item }} iburst"
+  with_items: common.ntp_config.servers
+  notify: restart service (chronyd)
   when: common.ntp_config.enabled
 - name: start service (chronyd)
   service: name=chronyd state=started enabled=yes
