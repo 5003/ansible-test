@@ -12,13 +12,13 @@
 # for Japan
 - name: ntp server (chronyd)
   yum: name=chrony state=present
-- block:
-  - name: delete existing settings
-    lineinfile: dest=/etc/chrony.conf regexp="^server.+?cent" state=absent
-  - name: server settings
-    lineinfile: dest=/etc/chrony.conf line="server {{ item }} iburst"
-    with_items: common.ntp_config.servers
-    notify: restart service (chronyd)
+- name: delete existing settings
+  lineinfile: dest=/etc/chrony.conf regexp="^server.+?cent" state=absent
+  when: common.ntp_config.enabled
+- name: server settings
+  lineinfile: dest=/etc/chrony.conf line="server {{ item }} iburst"
+  with_items: common.ntp_config.servers
+  notify: restart service (chronyd)
   when: common.ntp_config.enabled
 - name: start service (chronyd)
   service: name=chronyd state=started enabled=yes
