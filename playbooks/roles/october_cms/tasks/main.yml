@@ -1,17 +1,14 @@
 ---
-- name: install dependency packages (php extension)
+- name: install dependency packages (git and php extensions)
   yum: name={{ item }} state=present
   with_items:
+    - git
     - php-gd
     - php-mbstring
     - php-mcrypt
     - php-mysql
 - name: httpd config file
-  lineinfile: dest=/etc/httpd/conf.d/access.conf create=yes line={{ item }}
-  with_items:
-    - '<Directory "{{ october.www_dir }}">'
-    - '  AllowOverride All'
-    - '</Directory>'
+  template: src=config/october_cms.conf dest=/etc/httpd/conf.d/
   notify: restart service (httpd)
 - name: start service (httpd)
   service: name=httpd state=started
