@@ -1,0 +1,5 @@
+---
+torch:
+  fetch_dir: /srv/torch/
+  install_dir: /usr/local/src/torch/
+  lua_version: "LUAJIT21"
