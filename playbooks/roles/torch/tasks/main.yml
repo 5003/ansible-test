@@ -1,0 +1,14 @@
+---
+- name: clone this project --> {{ torch.fetch_dir }}
+  git: >
+        repo=https://github.com/torch/distro.git recursive=yes
+        dest={{ torch.fetch_dir }} update=no accept_hostkey=yes
+- name: create directory
+  file: path={{ torch.install_dir }} state=directory
+- name: install packages ==> {{ torch.install_dir }}
+  shell: >
+          find {{ torch.fetch_dir }} -maxdepth 1
+          | egrep "install.*sh|dep"
+          | PREFIX=$(dirname {{ torch.install_dir }}//0)
+          \ TORCH_LUA_VERSION={{ torch.lua_version }}
+          \ bash chdir={{ torch.fetch_dir }}
