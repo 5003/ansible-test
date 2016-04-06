@@ -1,6 +1,7 @@
 ---
 october:
   config:
+    servername: dev-oct
     db:
       port: ""
       name: october
