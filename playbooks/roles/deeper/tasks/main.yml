@@ -1,0 +1,15 @@
+---
+- name: build requires (common)
+  yum: name={{ item }} state=present
+  with_items: deeper.build_requires.common
+- name: build requires (math related, and more)
+  yum: name={{ item }} state=present
+  with_items: deeper.build_requires.math_others
+- name: install packages (parameter > state)
+  pip: name={{ item.key }} state={{ item.value.version }}
+  with_dict: "{{ deeper.install }}"
+  when: item.value.version in ["present", "absent", "latest", "forcereinstall"]
+- name: install packages (parameter > version)
+  pip: name={{ item.key }} version={{ item.value.version }}
+  with_dict: "{{ deeper.install }}"
+  ignore_errors: yes

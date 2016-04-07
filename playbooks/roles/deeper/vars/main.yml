@@ -1,0 +1,10 @@
+---
+deeper:
+  build_requires:
+    common: [epel-release, gcc-c++, git, python-devel, python-pip]
+    math_others: [atlas-devel, lapack-devel, openblas-devel]
+  install:
+    numpy:
+      version: latest
+    scipy:
+      version: latest
