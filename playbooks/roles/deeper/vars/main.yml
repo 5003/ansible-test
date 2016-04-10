@@ -1,10 +1,26 @@
 ---
 deeper:
   build_requires:
-    common: [epel-release, gcc-c++, git, python-devel, python-pip]
-    math_others: [atlas-devel, lapack-devel, openblas-devel]
+    common:
+      - epel-release
+      - http://packages.groonga.org/centos/groonga-repository-1.0.1-0.noarch.rpm
+      - gcc-c++
+      - git
+      - python-devel
+    math_others:
+      - python-pip
+      - atlas-devel
+      - lapack-devel
+      - openblas-devel
+      - python34-devel
+      - mecab-devel
+      - mecab-ipadic
+      - mecab-jumandic
+  executable: pip3
   install:
     numpy:
       version: latest
     scipy:
+      version: latest
+    sklearn:
       version: latest
