@@ -5,11 +5,20 @@
 - name: build requires (math related, and more)
   yum: name={{ item }} state=present
   with_items: deeper.build_requires.math_others
+- name: install version 3.* of pip
+  shell: >
+          wget --output-document
+          - https://bootstrap.pypa.io/get-pip.py
+          | python3
 - name: install packages (parameter > state)
-  pip: name={{ item.key }} state={{ item.value.version }}
+  pip: >
+        name={{ item.key }} state={{ item.value.version }}
+        executable={{ deeper.executable }}
   with_dict: "{{ deeper.install }}"
   when: item.value.version in ["present", "absent", "latest", "forcereinstall"]
 - name: install packages (parameter > version)
-  pip: name={{ item.key }} version={{ item.value.version }}
+  pip: >
+        name={{ item.key }} version={{ item.value.version }}
+        executable={{ deeper.executable }}
   with_dict: "{{ deeper.install }}"
   ignore_errors: yes
