@@ -16,4 +16,10 @@ Vagrant.configure(2) do |config|
     devenv.vm.network "private_network", ip: "88.88.88.88"
     devenv.vm.synced_folder "..", "/vf"
   end
+  config.vm.provider :virtualbox do |vbox|
+    vbox.memory = ENV['VBOX_MEMORY'] || 480
+    vbox.cpus = ENV['VBOX_CPUS'] || 2
+    vbox.customize ["modifyvm", :id, "--nictype1", "virtio"]
+    vbox.customize ["modifyvm", :id, "--nictype2", "virtio"]
+  end
 end
