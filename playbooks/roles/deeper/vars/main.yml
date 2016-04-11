@@ -24,3 +24,5 @@ deeper:
       version: latest
     sklearn:
       version: latest
+    mecab-python3:
+      version: latest
