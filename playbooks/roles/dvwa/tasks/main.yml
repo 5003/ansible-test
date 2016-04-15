@@ -1,0 +1,26 @@
+---
+- name: install dependency packages
+  yum: name={{ item }} state=present
+  with_items:
+    - git
+    - php
+    - php-gd
+    - php-mysql
+- name: httpd config file
+  template: src=config/dvwa.conf dest=/etc/httpd/conf.d/
+  notify: restart service (httpd)
+- name: create database
+  mysql_db: >
+             name={{ dvwa.config.db.name }} state=present
+             login_user={{ dvwa.config.db.username }}
+             login_password={{ dvwa.config.db.password }}
+- name: clone this project --> {{ dvwa.fetch_dir }}
+  git: >
+        repo=https://github.com/RandomStorm/DVWA.git
+        dest={{ dvwa.fetch_dir }} update=no
+- name: ==> {{ dvwa.www_dir }}
+  synchronize: >
+                src={{ dvwa.fetch_dir }} dest={{ dvwa.www_dir }}
+                rsync_opts=--update
+- name: app config
+  template: src=app/config.inc.php dest={{ dvwa.www_dir }}config/
