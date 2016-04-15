@@ -1,0 +1,10 @@
+---
+dvwa:
+  fetch_dir: /srv/dvwa_package/
+  www_dir: /var/www/dvwa/
+  config:
+    servername: dev-dvwa
+    db:
+      name: dvwa
+      username: root
+      password: ""
