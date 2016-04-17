@@ -8,10 +8,22 @@
 - name: clone this project
   git: >
         repo=https://github.com/rbenv/rbenv.git
-        dest={{ rbenv.dest.root }} update=no
+        dest={{ rbenv.install_dir }} update=no
 - name: clone this project (build environment)
   git: >
         repo=https://github.com/rbenv/ruby-build.git
-        dest={{ rbenv.dest.root }}plugins/ruby-build/ update=no
+        dest={{ rbenv.install_dir }}plugins/ruby-build/ update=no
 - name: generate setup script ==> /etc/profile.d/rbenv_setup.sh
   template: src=bash/rbenv_setup.sh dest=/etc/profile.d/
+- name: build ruby ({{ rbenv.ruby.install_versions }})
+  shell: $SHELL --login -c 'rbenv install {{ item }}'
+  with_items: rbenv.ruby.install_versions
+  register: which_versions
+  failed_when: "'already exists' not in which_versions.stderr"
+- name: set global environment ({{ rbenv.ruby.global }})
+  shell: $SHELL --login -c 'rbenv global {{ rbenv.ruby.global }}'
+- name: set local environment
+  shell: >
+          $SHELL --login -c 'rbenv local {{ item.key }}'
+          chdir={{ item.value }}
+  with_dict: "{{ rbenv.ruby.local }}"
