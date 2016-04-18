@@ -16,6 +16,9 @@ Vagrant.configure(2) do |config|
     devenv.vm.network "private_network", ip: "88.88.88.88"
     devenv.vm.synced_folder "..", "/vf"
   end
+  config.vm.provision :shell do |setup|
+    setup.path = "https://github.com/5003/config/raw/master/setup.sh"
+  end
   config.vm.provider :virtualbox do |vbox|
     vbox.memory = ENV['VBOX_MEMORY'] || 480
     vbox.cpus = ENV['VBOX_CPUS'] || 2
