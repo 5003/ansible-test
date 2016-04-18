@@ -15,3 +15,6 @@ rbenv:
     global: 2.3.0
     local:
       2.2.4: /srv/
+  gem:
+    bundler:
+      version: present
