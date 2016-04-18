@@ -2,9 +2,15 @@
 rbenv:
   build_requires:
     spec: [autoconf, gdbm-devel, libffi-devel, libyaml-devel, ncurses-devel, openssl-devel, readline-devel]
-    others: [gcc, git]
+    others:
+      - bzip2
+      - gcc
+      - git
+      - make
+      - perl-Digest-SHA
   install_dir: /usr/local/src/rbenv/
   ruby:
+    make_opts: ""
     install_versions: [2.2.4, 2.3.0]
     global: 2.3.0
     local:
