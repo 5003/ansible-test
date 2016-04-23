@@ -3,6 +3,7 @@ deeper:
   build_requires:
     common:
       - epel-release
+      - bc
       - http://packages.groonga.org/centos/groonga-repository-1.0.1-0.noarch.rpm
       - gcc-c++
       - git
