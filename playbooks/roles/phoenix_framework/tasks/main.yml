@@ -1,0 +1,21 @@
+---
+- name: install dependency package (inotify-tools)
+  yum: name=inotify-tools-devel state=present
+- name: verify hex installation
+  command: mix hex.info
+  sudo: no
+  register: which_hex
+  ignore_errors: true
+- name: install hex (mix) package
+  shell: yes | mix local.hex
+  sudo: no
+  when: which_hex | failed
+- name: verify phoenix installation
+  command: mix phoenix.new --version
+  sudo: no
+  register: which_phoenix
+  ignore_errors: true
+- name: install phoenix framework (mix) package
+  shell: yes | mix archive.install {{ phoenix_framework.installer }}
+  sudo: no
+  when: which_phoenix | failed
