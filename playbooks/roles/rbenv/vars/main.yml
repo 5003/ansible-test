@@ -11,8 +11,8 @@ rbenv:
       - perl-Digest-SHA
   install_dir: "{% if system_wide %}/usr/local/src/rbenv/{% else %}{{ ansible_user_dir }}/.rbenv/{% endif %}"
   ruby:
-    make_opts: ""
-    install_versions: [2.2.4, 2.3.0]
+    make_opts: "CONFIGURE_OPTS=--disable-install-rdoc"
+    install_versions: [2.3.0]
     global: 2.3.0
     local:
       enabled: no
