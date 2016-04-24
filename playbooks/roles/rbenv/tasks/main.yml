@@ -27,6 +27,7 @@
           $SHELL --login -c 'rbenv local {{ item.key }}'
           chdir={{ item.value }}
   with_dict: "{{ rbenv.ruby.local }}"
+  when: rbenv.ruby.local.enabled
 - name: install gem * package (parameter > state)
   gem: >
         name={{ item.key }} state={{ item.value.version }}
