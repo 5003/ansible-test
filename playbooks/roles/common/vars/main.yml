@@ -1,0 +1,6 @@
+---
+common:
+  popular_packages: [git, zip, unzip]
+  ntp_config:
+    enabled: true
+    servers: [210.173.160.27, 210.173.160.57, 210.173.160.87]
