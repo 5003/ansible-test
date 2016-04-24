@@ -1,4 +1,5 @@
 ---
+system_wide: no
 rbenv:
   build_requires:
     spec: [autoconf, gdbm-devel, libffi-devel, libyaml-devel, ncurses-devel, openssl-devel, readline-devel]
@@ -8,7 +9,7 @@ rbenv:
       - git
       - make
       - perl-Digest-SHA
-  install_dir: /usr/local/src/rbenv/
+  install_dir: "{% if system_wide %}/usr/local/src/rbenv/{% else %}{{ ansible_user_dir }}/.rbenv/{% endif %}"
   ruby:
     make_opts: ""
     install_versions: [2.2.4, 2.3.0]
