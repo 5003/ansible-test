@@ -1,0 +1,12 @@
+---
+- name: install package
+  yum: name={{ item }} state=present
+  with_items:
+    - docker
+    - python-docker-py
+- name: start service
+  service: name=docker state=started enabled=yes
+- name: cache images
+  command: docker pull {{ item }}
+  with_items: docker.cache_images
+  when: docker.cache_images is defined
