@@ -1,3 +1,6 @@
 ---
 docker:
-  cache_images: [centos, quay.io/5003/centos-ssh]
+  cache_images:
+    - centos
+    - rancher/server
+    - rancher/agent
