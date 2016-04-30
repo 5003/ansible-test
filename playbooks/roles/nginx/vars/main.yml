@@ -1,0 +1,5 @@
+---
+nginx:
+  xip_io:
+    backend:
+      host: http://localhost:8753
