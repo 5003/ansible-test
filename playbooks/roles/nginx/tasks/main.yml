@@ -6,3 +6,6 @@
     - python-pycurl
 - name: settings for wildcard domain name system
   template: src=proxy/automated_xip.conf dest=/etc/nginx/conf.d/
+  notify: restart service (nginx)
+- name: start service (nginx)
+  service: name=nginx state=started enabled=yes
