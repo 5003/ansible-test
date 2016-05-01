@@ -1,18 +1,4 @@
 ---
-- name: create yum repo
-  get_url: >
-            url=http://packages.erlang-solutions.com/rpm/centos/erlang_solutions.repo
-            dest=/etc/yum.repos.d/
-- name: install dependency packages
-  yum: name={{ item }} state=present
-  with_items:
-    - epel-release
-    - gcc-c++
-    - git
-    - make
-    - ncurses-devel
-    - openssl-devel
-    - esl-erlang
 - name: verify elixir installation
   command: iex --version
   sudo: no
