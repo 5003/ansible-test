@@ -1,4 +1,9 @@
 ---
+- name: verify erlang installation
+  command: erl -version
+  become: no
+  register: which_erl
+  ignore_errors: yes
 - name: install dependency packages
   command: apk add --no-cache {{ item }}
   with_items:
@@ -17,3 +22,4 @@
   shell: >
           ./otp_build autoconf && ./configure
           && make -j $(nproc) && make install chdir={{ erlang.build_dir }}
+  when: which_erl | failed
