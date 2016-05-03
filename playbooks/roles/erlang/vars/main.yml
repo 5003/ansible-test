@@ -1,0 +1,4 @@
+---
+erlang:
+  build_dir: /usr/local/src/erlang/
+  version: OTP-18.3.2

@@ -1,0 +1,19 @@
+---
+- name: install dependency packages
+  command: apk add --no-cache {{ item }}
+  with_items:
+    - autoconf
+    - coreutils
+    - g++
+    - make
+    - ncurses-dev
+    - openssl-dev
+- name: compilation (clone)
+  git: >
+        repo=https://github.com/erlang/otp.git
+        dest={{ erlang.build_dir }} update=no
+        version={{ erlang.version }}
+- name: compilation (build started)
+  shell: >
+          ./otp_build autoconf && ./configure
+          && make -j $(nproc) && make install chdir={{ erlang.build_dir }}
