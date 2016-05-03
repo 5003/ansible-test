@@ -7,9 +7,11 @@ required_plugins.each do |plugin|
 end
 Vagrant.configure(2) do |config|
   config.vm.box_check_update = false
+=begin
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :machine
   end
+=end
   config.vm.define "dev" do |devenv|
     devenv.vm.box = "dev"
     devenv.vm.box_url = "file:///C:/Users/Public/boxes/opscode_centos-7.2_chef-provisionerless.box"
