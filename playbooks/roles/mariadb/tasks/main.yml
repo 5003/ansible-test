@@ -30,3 +30,9 @@
   with_items:
     - localhost
     - "{{ ansible_fqdn }}"
+- name: database settings
+  template: src={{ item }} dest=/etc/my.cnf.d/
+  with_items:
+    - my.cnf.d/client.cnf
+    - my.cnf.d/server.cnf
+  notify: restart service
