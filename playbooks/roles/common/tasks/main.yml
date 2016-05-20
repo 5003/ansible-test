@@ -7,7 +7,7 @@
     - epel-release
 - name: popular software programs
   yum: name={{ item }} state=present
-  with_items: common.popular_packages
+  with_items: "{{ common.popular_packages }}"
   when: common.popular_packages is defined
 # for Japan
 - name: ntp server (chronyd)
@@ -17,7 +17,7 @@
   when: common.ntp_config.enabled
 - name: server settings
   lineinfile: dest=/etc/chrony.conf line="server {{ item }} iburst"
-  with_items: common.ntp_config.servers
+  with_items: "{{ common.ntp_config.servers }}"
   notify: restart service (chronyd)
   when: common.ntp_config.enabled
 - name: start service (chronyd)
