@@ -1,0 +1,8 @@
+---
+- name: create directory
+  file: path={{ teamspeak_3.server.install_dir }} state=directory
+- name: install package
+  shell: >
+          wget --output-document - {{ teamspeak_3.server.installer }}
+          | tar --bzip2 --extract --file - --strip-components=1
+          --directory={{ teamspeak_3.server.install_dir }}
