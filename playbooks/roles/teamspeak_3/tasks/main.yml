@@ -1,4 +1,10 @@
 ---
+- name: install dependency packages
+  yum: name={{ item }} state=present
+  with_items:
+    - bzip2
+    - php
+    - php-mysql
 - name: create directory
   file: path={{ teamspeak_3.server.install_dir }} state=directory
 - name: install package
@@ -6,3 +12,11 @@
           wget --output-document - {{ teamspeak_3.server.installer }}
           | tar --bzip2 --extract --file - --strip-components=1
           --directory={{ teamspeak_3.server.install_dir }}
+- firewalld: service=http permanent=yes state=enabled immediate=yes
+- firewalld: port={{ item }}/tcp permanent=yes state=enabled immediate=yes
+  with_items:
+    - 10011
+    - 30033
+- firewalld: port={{ item }}/udp permanent=yes state=enabled immediate=yes
+  with_items:
+    - 9987
