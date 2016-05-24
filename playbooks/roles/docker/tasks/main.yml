@@ -8,5 +8,5 @@
   service: name=docker state=started enabled=yes
 - name: cache images
   command: docker pull {{ item }}
-  with_items: docker.cache_images
+  with_items: "{{ docker.cache_images }}"
   when: docker.cache_images is defined
