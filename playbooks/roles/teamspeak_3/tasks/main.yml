@@ -6,12 +6,28 @@
     - php
     - php-mysql
 - name: create directory
-  file: path={{ teamspeak_3.server.install_dir }} state=directory
+  file: path={{ item }} state=directory
+  with_items:
+    - "{{ teamspeak_3.server.install_dir }}"
+    - "{{ teamspeak_3.server.addon.www_dir }}"
+    - "{{ teamspeak_3.server.addon.www_dir }}../src/"
 - name: install package
   shell: >
           wget --output-document - {{ teamspeak_3.server.installer }}
           | tar --bzip2 --extract --file - --strip-components=1
           --directory={{ teamspeak_3.server.install_dir }}
+- name: addon
+  template: src={{ item.src }} dest={{ item.dest }} mode=0775
+  with_items:
+    - { src: 'addon/ts3server.conf', dest: '/etc/httpd/conf.d/' }
+    - { src: 'addon/ts3admin.class.php', dest: '{{ teamspeak_3.server.addon.www_dir }}../src/' }
+    - { src: 'addon/status/clientkick.php', dest: '{{ teamspeak_3.server.addon.www_dir }}' }
+    - { src: 'addon/status/clientlist.php', dest: '{{ teamspeak_3.server.addon.www_dir }}' }
+    - { src: 'addon/status/clientlist_with_avatar.php', dest: '{{ teamspeak_3.server.addon.www_dir }}' }
+    - { src: 'addon/status/serverlist.php', dest: '{{ teamspeak_3.server.addon.www_dir }}' }
+    - { src: 'addon/status/viewreturn.php', dest: '{{ teamspeak_3.server.addon.www_dir }}' }
+    - { src: 'addon/TS3AutoDelete.php', dest: '{{ teamspeak_3.server.addon.www_dir }}../src/' }
+  notify: restart service (httpd)
 - firewalld: service=http permanent=yes state=enabled immediate=yes
 - firewalld: port={{ item }}/tcp permanent=yes state=enabled immediate=yes
   with_items:
