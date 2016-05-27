@@ -30,6 +30,11 @@
   with_items:
     - localhost
     - "{{ ansible_fqdn }}"
+- name: drop test database
+  mysql_db: >
+             name=test state=absent
+             login_user={{ mariadb.config.username }}
+             login_password={{ mariadb.config.password }}
 - name: database settings
   template: src={{ item }} dest=/etc/my.cnf.d/
   with_items:
