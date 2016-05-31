@@ -2,11 +2,11 @@
 - name: build requires (ruby spec)
   become: yes
   yum: name={{ item }} state=present
-  with_items: rbenv.build_requires.spec
+  with_items: "{{ rbenv.build_requires.spec }}"
 - name: build requires (compiler, and more)
   become: yes
   yum: name={{ item }} state=present
-  with_items: rbenv.build_requires.others
+  with_items: "{{ rbenv.build_requires.others }}"
 - name: set deploy user
   set_fact: deploy_user={{ rbenv.deploy_user | default("root") }}
 - name: clone this project
@@ -27,7 +27,7 @@
   shell: >
           $SHELL --login -c 'rbenv versions | \grep {{ item }}
           || {{ rbenv.ruby.make_opts }} rbenv install {{ item }}'
-  with_items: rbenv.ruby.install_versions
+  with_items: "{{ rbenv.ruby.install_versions }}"
 - name: set global environment ({{ rbenv.ruby.global }})
   become_user: "{{ deploy_user }}"
   shell: $SHELL --login -c 'rbenv global {{ rbenv.ruby.global }}'
