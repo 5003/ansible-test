@@ -1,8 +1,10 @@
 ---
 - name: build requires (ruby spec)
+  become: yes
   yum: name={{ item }} state=present
   with_items: rbenv.build_requires.spec
 - name: build requires (compiler, and more)
+  become: yes
   yum: name={{ item }} state=present
   with_items: rbenv.build_requires.others
 - name: set deploy user
@@ -18,6 +20,7 @@
         repo=https://github.com/rbenv/ruby-build.git
         dest={{ rbenv.install_dir }}plugins/ruby-build/ update=no
 - name: generate setup script ==> /etc/profile.d/rbenv_setup.sh
+  become: yes
   template: src=bash/rbenv_setup.sh dest=/etc/profile.d/
 - name: build ruby ({{ rbenv.ruby.install_versions }})
   become_user: "{{ deploy_user }}"
