@@ -1,6 +1,7 @@
 ---
 - name: install package
   yum: name={{ item }} state=present
+  become: yes
   with_items:
     - nginx
     - python-pycurl
