@@ -3,5 +3,5 @@ rancher:
   compose:
     install_dir: /usr/local/bin/
   servers:
-    infra:
+    backend:
       ports: 8753:8080
