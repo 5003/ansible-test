@@ -8,5 +8,12 @@
 - name: settings for wildcard domain name system
   template: src=proxy/automated_xip.conf dest=/etc/nginx/conf.d/
   notify: restart service (nginx)
+- name: set keys
+  set_fact: >
+             server_certificate={{ nginx.ssl.keys.server_certificate | default(certbot_server_certificate) }}
+             private_key={{ nginx.ssl.keys.private_key | default(certbot_private_key) }}
+- name: apply ssl settings
+  template: src=secure/ssl.conf dest=/etc/nginx/conf.d/
+  notify: restart service (nginx)
 - name: start service (nginx)
   service: name=nginx state=started enabled=yes

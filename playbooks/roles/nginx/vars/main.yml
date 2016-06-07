@@ -1,5 +1,14 @@
 ---
+certbot_server_certificate: ""
+certbot_private_key: ""
 nginx:
   xip_io:
     backend:
       host: http://localhost:8753
+  ssl:
+    keys:
+      server_certificate: ""
+      private_key: ""
+    ocsp_stapling:
+      enabled: yes
+      resolver: "8.8.8.8 8.8.4.4"
