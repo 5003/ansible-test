@@ -1,0 +1,5 @@
+---
+letsencrypt:
+  certbot:
+    install_dir: /usr/local/src/certbot/
+    version: v0.8.0

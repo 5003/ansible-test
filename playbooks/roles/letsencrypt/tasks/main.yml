@@ -1,0 +1,6 @@
+---
+- name: clone this project
+  git: >
+        repo=https://github.com/certbot/certbot.git
+        dest={{ letsencrypt.certbot.install_dir }} update=no
+        version={{ letsencrypt.certbot.version }}
