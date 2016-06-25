@@ -6,6 +6,7 @@ nginx:
     backend:
       host: http://localhost:8753
   ssl:
+    enabled: no
     keys:
       server_certificate: ""
       private_key: ""
