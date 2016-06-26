@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
   end
 =end
   config.vm.define "dev" do |devenv|
-    devenv.vm.box = "dev"
+    devenv.vm.box = "bento/centos-7.2"
     devenv.vm.box_url = "file:///C:/Users/Public/boxes/opscode_centos-7.2_chef-provisionerless.box"
     devenv.vm.network "private_network", ip: "88.88.88.88"
     devenv.vm.synced_folder "..", "/vf"
