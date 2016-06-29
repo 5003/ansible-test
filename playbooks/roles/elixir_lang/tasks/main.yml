@@ -17,6 +17,7 @@
   shell: elixir --version | grep $(echo "{{ elixir_lang.version }}" | tr -d v)
   become: no
   register: which_elixir
+  failed_when: which_elixir.rc not in [0, 1, 2]
   ignore_errors: true
 - name: cleanup source code directly
   file: path={{ elixir_lang.build_dir }} state=absent
