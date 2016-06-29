@@ -15,7 +15,7 @@
     - esl-erlang
 - name: verify elixir installation
   command: iex --version
-  sudo: no
+  become: no
   register: which_iex
   ignore_errors: true
 - name: compilation (clone)
