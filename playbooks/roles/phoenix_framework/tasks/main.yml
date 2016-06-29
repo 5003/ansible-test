@@ -3,19 +3,19 @@
   yum: name=inotify-tools-devel state=present
 - name: verify hex installation
   command: mix hex.info
-  sudo: no
+  become: no
   register: which_hex
   ignore_errors: true
 - name: install hex (mix) package
   shell: yes | mix local.hex
-  sudo: no
+  become: no
   when: which_hex | failed
 - name: verify phoenix installation
   command: mix phoenix.new --version
-  sudo: no
+  become: no
   register: which_phoenix
   ignore_errors: true
 - name: install phoenix framework (mix) package
   shell: yes | mix archive.install {{ phoenix_framework.installer }}
-  sudo: no
+  become: no
   when: which_phoenix | failed
