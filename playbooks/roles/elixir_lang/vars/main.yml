@@ -1,4 +1,4 @@
 ---
 elixir_lang:
-  version: HEAD
+  version: v1.3.1
   build_dir: /usr/local/src/elixir/
