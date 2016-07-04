@@ -3,21 +3,26 @@ system_wide: no
 rbenv:
   build_requires:
     spec: [autoconf, gdbm-devel, libffi-devel, libyaml-devel, ncurses-devel, openssl-devel, readline-devel]
+
     others:
       - bzip2
       - gcc
       - git
       - make
       - perl-Digest-SHA
+
   install_dir: "{% if system_wide %}/usr/local/src/rbenv/{% else %}$HOME/.rbenv/{% endif %}"
   deploy_user: "{{ ansible_user_id }}"
+
   ruby:
     make_opts: 'CONFIGURE_OPTS="--disable-install-rdoc" MAKE_OPTS="-j {{ ansible_processor_cores }}"'
     install_versions: [2.2.4, 2.3.0]
     global: 2.3.0
+
     local:
       enabled: no
       2.2.4: /srv/
+
   gem:
     bundler:
       version: present
