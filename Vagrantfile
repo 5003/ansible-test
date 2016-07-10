@@ -16,6 +16,8 @@ Vagrant.configure(2) do |config|
     devenv.vm.box = "bento/centos-7.2"
     devenv.vm.box_url = "file:///C:/Users/Public/boxes/opscode_centos-7.2_chef-provisionerless.box"
     devenv.vm.network "private_network", ip: "88.88.88.88"
+    devenv.vm.synced_folder ".", "/vagrant"
+    devenv.vm.synced_folder ".", "/vagrant_win", :mount_options => ["dmode=777", "fmode=666"]
     devenv.vm.synced_folder "..", "/vf"
   end
   config.vm.provision :shell do |setup|
