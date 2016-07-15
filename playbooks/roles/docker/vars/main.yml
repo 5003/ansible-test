@@ -4,4 +4,12 @@ docker:
     - centos
     - rancher/server
     - rancher/agent
-    - quay.io/5003/centos-ansible-ci
+    - 5003/systemd
+    - 5003/base
+    - 5003/builder
+    - 5003/builder:curl
+    - 5003/builder:scm
+    - 5003/sshd
+    - alpine:edge
+fig:
+  install_path: /usr/local/bin/fig
