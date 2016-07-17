@@ -12,7 +12,7 @@ docker:
     - 5003/sshd
     - alpine:edge
     - ruby:2.3
-    - rails:onbuild
     - rails
+    - rails:onbuild
 fig:
   install_path: /usr/local/bin/fig
