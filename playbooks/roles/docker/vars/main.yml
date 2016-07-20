@@ -14,5 +14,8 @@ docker:
     - ruby:2.3
     - rails
     - rails:onbuild
+    - consul
+    - hashicorp/packer
+    - hashicorp/terraform
 fig:
   install_path: /usr/local/bin/fig
