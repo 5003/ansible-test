@@ -1,0 +1,5 @@
+---
+- name: fetch binary file
+  get_url: >
+            url=https://github.com/direnv/direnv/releases/download/v2.9.0/direnv.linux-amd64
+            dest=/usr/local/bin/direnv mode=0755
