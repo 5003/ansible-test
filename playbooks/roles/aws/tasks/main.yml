@@ -1,0 +1,10 @@
+---
+- name: install dependency package
+  yum: name={{ item }} state=present
+  with_items:
+    - python-pip
+- name: install tools for command line
+  pip: name={{ item }} state=latest
+  with_items:
+    - awscli
+    - aws-shell
