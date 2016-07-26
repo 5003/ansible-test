@@ -23,6 +23,9 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell do |setup|
     setup.path = "https://github.com/5003/config/raw/master/setup.sh"
   end
+  config.vm.provision :shell do |env|
+    env.inline = "ln -s /vf/.direnvrc ~/"
+  end
   config.vm.provider :virtualbox do |vbox|
     vbox.memory = ENV['VBOX_MEMORY'] || 480
     vbox.cpus = ENV['VBOX_CPUS'] || 2
