@@ -13,6 +13,7 @@
            restart_policy=always ports={{ item.value.ports }}
   with_dict: "{{ rancher.servers }}"
 - name: running servers (starting up)
+  become: yes
   command: docker logs {{ item.key }}
   with_dict: "{{ rancher.servers }}"
   register: rancher_logs
