@@ -5,6 +5,7 @@
   with_items:
     - docker
     - python-docker-py
+    - python-pip
 - name: start service
   service: name=docker state=started enabled=yes
 - name: cache images
@@ -12,6 +13,4 @@
   with_items: "{{ docker.cache_images }}"
   when: docker.cache_images is defined
 - name: install compose (fig)
-  get_url: >
-            url=https://github.com/docker/compose/releases/download/1.7.1/docker-compose-Linux-x86_64
-            dest={{ fig.install_path }} mode=0755
+  pip: name=docker-compose state=latest
