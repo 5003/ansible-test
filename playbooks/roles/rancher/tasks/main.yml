@@ -1,16 +1,19 @@
 ---
 - name: install compose
+  become: yes
   shell: >
           wget --output-document
           - https://github.com/rancher/rancher-compose/releases/download/v0.7.4/rancher-compose-linux-amd64-v0.7.4.tar.xz
           | tar --xz --extract --file - --strip-components=2
           --directory={{ rancher.compose.install_dir }}
 - name: running servers (started)
+  become: yes
   docker: >
            name={{ item.key }} image=rancher/server
            restart_policy=always ports={{ item.value.ports }}
   with_dict: "{{ rancher.servers }}"
 - name: running servers (starting up)
+  become: yes
   command: docker logs {{ item.key }}
   with_dict: "{{ rancher.servers }}"
   register: rancher_logs
