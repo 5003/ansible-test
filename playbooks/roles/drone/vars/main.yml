@@ -1,0 +1,9 @@
+---
+drone:
+  version: 0.5
+  servers:
+    ci:
+      ports: 8754:8000
+  remote:
+    driver: ""
+    config: ""

@@ -1,0 +1,8 @@
+---
+- name: run containers
+  docker: >
+           name={{ item.key }} image=drone/drone:{{ drone.version }}
+           detach=yes volumes=/var/lib/drone:/var/lib/drone,/var/run/docker.sock:/var/run/docker.sock
+           restart_policy=always ports={{ item.value.ports }}
+           env="REMOTE_DRIVER={{ drone.remote.driver }},REMOTE_CONFIG={{ drone.remote.config }}"
+  with_dict: "{{ drone.servers }}"
