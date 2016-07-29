@@ -17,6 +17,8 @@ docker:
     - golang:1.5-alpine
     - golang:1.6-alpine
     - golang:1.7-alpine
+    - drone/drone:0.4
+    - drone/drone:0.5
     - consul
     - hashicorp/packer
     - hashicorp/terraform
