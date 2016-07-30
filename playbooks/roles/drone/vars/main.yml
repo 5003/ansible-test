@@ -5,5 +5,5 @@ drone:
     ci:
       ports: 8754:8000
   remote:
-    driver: ""
-    config: ""
+    driver: "$DRONE_REMOTE_DRIVER"
+    config: "$DRONE_REMOTE_CONFIG"
