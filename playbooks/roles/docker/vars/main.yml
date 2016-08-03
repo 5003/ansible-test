@@ -19,6 +19,9 @@ docker:
     - golang:1.7-alpine
     - drone/drone:0.4
     - drone/drone:0.5
+    - busybox
+    - registry:2
+    - redis:3.2-alpine
     - consul
     - hashicorp/packer
     - hashicorp/terraform
