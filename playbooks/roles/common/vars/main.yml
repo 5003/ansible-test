@@ -1,6 +1,12 @@
 ---
 common:
-  popular_packages: [git, zip, unzip]
+  popular_packages:
+    - git
+    - zip
+    - unzip
+    - vim-enhanced
+    - bash-completion
+
   ntp_config:
     enabled: true
     servers: [210.173.160.27, 210.173.160.57, 210.173.160.87]
