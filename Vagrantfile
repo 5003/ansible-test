@@ -7,6 +7,7 @@ required_plugins.each do |plugin|
 end
 $profile_script = <<SCRIPT
     BASH_PROFILE_PATH=/etc/profile.d/x_5003_profile.sh
+    export BASH_PROFILE_PATH
     wget -qO- https://github.com/5003/config/raw/master/setup.sh | bash
 SCRIPT
 $devenv_script = <<SCRIPT
