@@ -16,6 +16,9 @@
   when: docker.cache_images is defined
   ignore_errors: yes
 
+- name: install ansible container
+  pip: name=ansible-container state=latest
+
 - name: install compose (fig)
   pip: name=docker-compose state=latest
 
